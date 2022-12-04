@@ -1,7 +1,9 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { AddStoryPointComponent } from '../add-story-point/add-story-point.component';
 
 @Component({
   selector: 'app-list-stories',
@@ -11,11 +13,24 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ListStoriesComponent {
   displayedColumns: string[] = ['name', 'point', 'description'];
   dataSource = new MatTableDataSource<Story>(ELEMENT_DATA);
+  constructor(public dialog: MatDialog) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddStoryPointComponent, {
+      width: '550px',
+      data: { name: 'hai', animal: 'hello' },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
   }
 }
 

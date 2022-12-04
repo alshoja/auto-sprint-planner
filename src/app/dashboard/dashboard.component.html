@@ -1,20 +1,4 @@
 <div class="grid-container">
-  <mat-grid-list cols="1" rowHeight="3.7:1">
-    <mat-grid-tile>
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            Stories and Points
-            <button (click)="openDialog()" mat-icon-button class="more-button" aria-label="Toggle menu">
-              <mat-icon>add</mat-icon>
-            </button>
-          </mat-card-title>
-        </mat-card-header>
-        <div style="padding: 10px">
-          <app-list-stories></app-list-stories>
-        </div>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <app-list-stories></app-list-stories>
   <app-plan-stories></app-plan-stories>
 </div>
