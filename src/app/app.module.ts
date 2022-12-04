@@ -11,6 +11,7 @@ import { AddStoryPointComponent } from './core/add-story-point/add-story-point.c
 import { ListStoriesComponent } from './core/list-stories/list-stories.component';
 import { PlanStoriesComponent } from './core/plan-stories/plan-stories.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ReactiveFormsModule,
     MaterialModule,
   ],
-  providers: [],
+  providers: [{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

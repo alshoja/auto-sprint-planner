@@ -1,6 +1,6 @@
 
 export interface Story {
-  name: string;
-  point: number;
+  storyName: string;
+  storyPoint: number;
   description: string;
 }
