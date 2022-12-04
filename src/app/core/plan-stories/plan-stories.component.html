@@ -1,0 +1,74 @@
+<div style="padding: 10px;" fxLayout="row" fxLayoutAlign="start start">
+  <mat-card fxFlex="33">
+    <mat-card-header>
+      <mat-card-title>Auto Selected Sprint</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile>
+          <mat-card>
+            <mat-card-content style="min-width: 800px;">
+              <cdk-accordion style="min-width: 800px;" class="example-accordion">
+                <cdk-accordion-item *ngFor="let item of items; let index = index;" #accordionItem="cdkAccordionItem"
+                  class="example-accordion-item" role="button" tabindex="0" [attr.id]="'accordion-header-' + index"
+                  [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">
+                  <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+                    {{ item }}
+                    <span class="example-accordion-item-description">
+                      Click to {{ accordionItem.expanded ? 'close' : 'open' }}
+                    </span>
+                  </div>
+                  <div class="example-accordion-item-body" role="region"
+                    [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + index"
+                    [attr.aria-labelledby]="'accordion-header-' + index">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis
+                    excepturi incidunt ipsum deleniti labore, tempore non nam doloribus blanditiis
+                    veritatis illo autem iure aliquid ullam rem tenetur deserunt velit culpa?
+                  </div>
+                </cdk-accordion-item>
+              </cdk-accordion>
+            </mat-card-content>
+          </mat-card>
+
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-card>
+            <mat-card-content>
+              <form [formGroup]="storyForm" novalidate (ngSubmit)="onSubmit()">
+                <mat-card-header>
+                  <mat-card-title>Sprint Calculator</mat-card-title>
+                </mat-card-header>
+                <br>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field class="full-width">
+                        <input type="number" matInput placeholder="Story Point" formControlName="capacity">
+                        <mat-error *ngIf="storyForm.controls['capacity'].hasError('required')">
+                          Story Point is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                </mat-card-content>
+                <mat-card-actions>
+                  <button style="padding:10px ;" mat-raised-button color="primary" type="submit">Auto Select
+                    Stories</button>
+                  <button mat-raised-button color="primary" type="submit">Clear Stories</button>
+                </mat-card-actions>
+                <mat-card-actions>
+                  <button mat-raised-button color="primary" type="submit">Clear Stories</button>
+                </mat-card-actions>
+              </form>
+
+            </mat-card-content>
+          </mat-card>
+
+
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
+
+</div>
