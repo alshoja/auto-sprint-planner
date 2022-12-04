@@ -8,17 +8,17 @@
         <mat-grid-tile>
           <mat-card>
             <mat-card-content style="min-width: 800px;">
-              <cdk-accordion style="min-width: 800px;" class="example-accordion">
+              <cdk-accordion style="min-width: 800px;" class="custom-accordion">
                 <cdk-accordion-item *ngFor="let item of items; let index = index;" #accordionItem="cdkAccordionItem"
-                  class="example-accordion-item" role="button" tabindex="0" [attr.id]="'accordion-header-' + index"
+                  class="custom-accordion-item" role="button" tabindex="0" [attr.id]="'accordion-header-' + index"
                   [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">
-                  <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+                  <div class="custom-accordion-item-header" (click)="accordionItem.toggle()">
                     {{ item }}
-                    <span class="example-accordion-item-description">
+                    <span class="custom-accordion-item-description">
                       Click to {{ accordionItem.expanded ? 'close' : 'open' }}
                     </span>
                   </div>
-                  <div class="example-accordion-item-body" role="region"
+                  <div class="custom-accordion-item-body" role="region"
                     [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + index"
                     [attr.aria-labelledby]="'accordion-header-' + index">
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis
