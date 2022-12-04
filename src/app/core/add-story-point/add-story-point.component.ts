@@ -28,10 +28,7 @@ export class AddStoryPointComponent {
   });
 
   onSubmit(): void {
-    if (this.storyForm.valid) {
-      this.storyService.addStory(this.storyForm.value as unknown as Story)
-    }
-    console.log(this.storyForm.value)
+    if (this.storyForm.valid) this.storyService.addStory(this.storyForm.value as unknown as Story)
   }
 
   onNoClick(): void {

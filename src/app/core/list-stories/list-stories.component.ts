@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,30 +12,33 @@ let ELEMENT_DATA: Story[] = []
   styleUrls: ['./list-stories.component.css']
 })
 export class ListStoriesComponent {
+  dataSource: any;
   displayedColumns: string[] = ['name', 'point', 'description'];
 
-  constructor(public dialog: MatDialog, private storyService: StoryService) { }
-  dataSource: any;
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  constructor(public dialog: MatDialog, public cd: ChangeDetectorRef, private storyService: StoryService) { }
+
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
   ngOnInit() {
-    this.storyService.getStories().subscribe(arg => this.dataSource = new MatTableDataSource<Story>(arg));
+    this.getStories()
   }
 
+  getStories() {
+    this.storyService.getStories().subscribe(arg => this.dataSource = new MatTableDataSource<Story>(arg));
+  }
   openDialog(): void {
     const dialogRef = this.dialog.open(AddStoryPointComponent, {
       width: '550px',
-      data: { name: 'hai', animal: 'hello' },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.animal = result;
+      this.getStories()
+      this.cd.detectChanges();
     });
   }
 }
