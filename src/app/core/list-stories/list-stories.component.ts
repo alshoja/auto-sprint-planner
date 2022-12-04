@@ -1,10 +1,11 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Story } from 'src/app/interfaces/story.interface';
+import { StoryService } from 'src/app/services/story/story.service';
 import { AddStoryPointComponent } from '../add-story-point/add-story-point.component';
-
+let ELEMENT_DATA: Story[] = []
 @Component({
   selector: 'app-list-stories',
   templateUrl: './list-stories.component.html',
@@ -12,13 +13,18 @@ import { AddStoryPointComponent } from '../add-story-point/add-story-point.compo
 })
 export class ListStoriesComponent {
   displayedColumns: string[] = ['name', 'point', 'description'];
-  dataSource = new MatTableDataSource<Story>(ELEMENT_DATA);
-  constructor(public dialog: MatDialog) { }
+
+  constructor(public dialog: MatDialog, private storyService: StoryService) { }
+  dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnInit() {
+    this.storyService.getStories().subscribe(arg => this.dataSource = new MatTableDataSource<Story>(arg));
   }
 
   openDialog(): void {
@@ -34,14 +40,3 @@ export class ListStoriesComponent {
   }
 }
 
-export interface Story {
-  name: string;
-  point: number;
-  description: string;
-}
-
-const ELEMENT_DATA: Story[] = [
-  { name: 'Hydrogen', point: 1.0079, description: 'H' },
-  { name: 'Helium', point: 4.0026, description: 'He' },
-  { name: 'Lithium', point: 6.941, description: 'Li' },
-];
