@@ -5,7 +5,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Story } from 'src/app/interfaces/story.interface';
 import { StoryService } from 'src/app/services/story/story.service';
 import { AddStoryPointComponent } from '../add-story-point/add-story-point.component';
-let ELEMENT_DATA: Story[] = []
 @Component({
   selector: 'app-list-stories',
   templateUrl: './list-stories.component.html',
@@ -16,7 +15,7 @@ export class ListStoriesComponent {
   displayedColumns: string[] = ['name', 'point', 'description'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(public dialog: MatDialog, public cd: ChangeDetectorRef, private storyService: StoryService) { }
+  constructor(public dialog: MatDialog, private storyService: StoryService) { }
 
 
   ngAfterViewInit() {
@@ -37,9 +36,7 @@ export class ListStoriesComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.getStories()
-      this.cd.detectChanges();
     });
   }
 }
