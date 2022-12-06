@@ -25,10 +25,8 @@ export class PlanStoriesComponent {
 
   onSubmit(): void {
     this.storyService.getStories().subscribe(stories => {
-      let length = stories.length;
       let sum = this.storyForm.value['capacity'] as unknown as number;
-      this.sharedService.calculateMaxStories(stories, length, sum)
-      this.sharedService.getAutoCalculatedStories().subscribe((stories: Story[]) => {
+      this.sharedService.getAutoCalculatedStories(stories, stories.length, sum).subscribe((stories: Story[]) => {
         this.items = stories
       })
     })

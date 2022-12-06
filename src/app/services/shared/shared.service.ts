@@ -7,62 +7,67 @@ import { Story } from 'src/app/interfaces/story.interface';
   providedIn: 'root'
 })
 export class SharedService {
-  storySubject = new Subject<any[]>();
+  story$ = new Subject<any[]>();
   items: any[] = [];
   storyItems: any[] = [];
 
   constructor(private _snackBar: MatSnackBar) {
-    this.storySubject = new BehaviorSubject<Story[]>(new Array<Story>())
+    this.story$ = new BehaviorSubject<Story[]>(new Array<Story>())
   }
-
 
   openSnackBar(message: string, type: string) {
     this._snackBar.open(message, type);
   }
 
-  getAutoCalculatedStories(): Subject<Story[]> {
-    this.storySubject.next(this.storyItems);
-    return this.storySubject
+  getAutoCalculatedStories(stories: Story[], arrayLength: number, maxStoryPoint: number,): Subject<Story[]> {
+    if (maxStoryPoint > this.getSumOfStoryPoints(stories)) {
+      this.storyItems = stories
+      this.story$.next(this.storyItems);
+    } else {
+      this.calculateMaxStories(stories, arrayLength, maxStoryPoint);
+    }
+    this.story$.next(this.storyItems);
+    return this.story$
   }
 
-  generateSubSetRec(stories: Story[], i: number, sum: number, current: any[]) {
-    if (i === 0 && sum !== 0 && this.items[0][sum] !== 0) {
+  generateSubSetRec(stories: Story[], i: number, maxStoryPoint: number, current: any[]) {
+    if (i === 0 && maxStoryPoint !== 0 && this.items[0][maxStoryPoint] !== 0) {
       current.push(stories[i]);
       this.storyItems = current;
       current = [];
       return;
     }
-    if (i === 0 && sum === 0) {
+    if (i === 0 && maxStoryPoint === 0) {
       this.storyItems = current;
       current = [];
       return;
     }
-    if (this.items[i - 1][sum]) {
+    if (this.items[i - 1][maxStoryPoint]) {
       const currentValues = [...current];
-      this.generateSubSetRec(stories, i - 1, sum, currentValues);
+      this.generateSubSetRec(stories, i - 1, maxStoryPoint, currentValues);
     }
     if (
-      sum >= stories[i].storyPoint &&
-      this.items[i - 1][sum - stories[i].storyPoint]
+      maxStoryPoint >= stories[i].storyPoint &&
+      this.items[i - 1][maxStoryPoint - stories[i].storyPoint]
     ) {
       current.push(stories[i]);
-      this.generateSubSetRec(stories, i - 1, sum - stories[i].storyPoint, current);
+      this.generateSubSetRec(stories, i - 1, maxStoryPoint - stories[i].storyPoint, current);
     }
   }
 
-  calculateMaxStories(stories: Story[], arrayLength: number, sum: number) {
-    if (arrayLength === 0 || sum < 0) return;
+  calculateMaxStories(stories: Story[], storyArrayLength: number, maxStoryPoint: number) {
+    if (storyArrayLength === 0 || maxStoryPoint < 0) return;
 
-    for (let i = 0; i < arrayLength; i++) {
+    for (let i = 0; i < storyArrayLength; i++) {
       this.items[i] = [];
-      for (let j = 0; j < sum + 1; j++) this.items[i].push(false);
+      for (let j = 0; j < maxStoryPoint + 1; j++) this.items[i].push(false);
     }
-    for (let i = 0; i < arrayLength; i++) this.items[i][0] = true;
+    for (let i = 0; i < storyArrayLength; i++) this.items[i][0] = true;
 
-    if (stories[0].storyPoint <= sum) this.items[0][stories[0].storyPoint] = true;
+    if (stories[0].storyPoint <= maxStoryPoint) this.items[0][stories[0].storyPoint] = true;
 
-    for (let i = 1; i < arrayLength; i++) {
-      for (let j = 0; j < sum + 1; j++) {
+    for (let i = 1; i < storyArrayLength; i++) {
+      for (let j = 0; j < maxStoryPoint + 1; j++) {
         if (stories[i].storyPoint <= j)
           this.items[i][j] =
             this.items[i - 1][j] || this.items[i - 1][j - stories[i].storyPoint];
@@ -70,13 +75,13 @@ export class SharedService {
       }
     }
 
-    if (this.items[arrayLength - 1][sum] === false) {
-      console.log("There are no subsets with sum " + sum);
+    if (this.items[storyArrayLength - 1][maxStoryPoint] === false) {
+      this.openSnackBar("There are no subsets with sum " + maxStoryPoint, 'Oops')
       return;
     }
 
     let current: number[] = [];
-    this.generateSubSetRec(stories, arrayLength - 1, sum, current);
+    this.generateSubSetRec(stories, storyArrayLength - 1, maxStoryPoint, current);
   }
 
   getSumOfStoryPoints(stories: Story[]) {

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Story } from 'src/app/interfaces/story.interface';
 import { SharedService } from '../shared/shared.service';
 let stories: Story[] = []
@@ -19,7 +18,6 @@ export class StoryService {
     this.storySubject.next(stories);
     return this.storySubject
   }
-
 
   addStory(item: Story) {
     const duplicates = stories.filter((story) => story.storyName === item.storyName)
