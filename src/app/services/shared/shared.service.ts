@@ -12,7 +12,7 @@ export class SharedService {
   storyItems: any[] = [];
 
   constructor(private _snackBar: MatSnackBar) {
-    this.storySubject = new BehaviorSubject<any>(new Array<Story>())
+    this.storySubject = new BehaviorSubject<Story[]>(new Array<Story>())
   }
 
 
@@ -21,13 +21,11 @@ export class SharedService {
   }
 
   getAutoCalculatedStories(): Subject<Story[]> {
-    console.log('this', this.storyItems)
     this.storySubject.next(this.storyItems);
     return this.storySubject
   }
 
   generateSubSetRec(stories: Story[], i: number, sum: number, current: any[]) {
-    console.log('level up', this.storyItems.length)
     if (i === 0 && sum !== 0 && this.items[0][sum] !== 0) {
       current.push(stories[i]);
       this.storyItems = current;
@@ -81,12 +79,16 @@ export class SharedService {
     this.generateSubSetRec(stories, arrayLength - 1, sum, current);
   }
 
-  sumArray(stories: Story[]) {
+  getSumOfStoryPoints(stories: Story[]) {
     let total = 0;
     for (let i = 0; i < stories.length; i++) {
       total += stories[i].storyPoint;
     }
     return total;
+  }
+
+  clearStories() {
+    this.storyItems = []
   }
 
 }

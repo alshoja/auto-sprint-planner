@@ -35,4 +35,14 @@ export class PlanStoriesComponent {
     })
   }
 
+  clearStories() {
+    this.storyService.clearStories()
+  }
+
+  clearSprint() {
+    this.items = []
+    this.sharedService.clearStories()
+  }
+
+
 }

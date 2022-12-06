@@ -8,13 +8,15 @@
         <mat-grid-tile>
           <mat-card>
             <mat-card-content style="min-width: 800px;">
+              <cdk-accordion-item *ngIf="!items.length">
+                No Data Available
+              </cdk-accordion-item>
               <cdk-accordion style="min-width: 800px;" class="custom-accordion">
-                <cdk-accordion-item *ngFor="let item of items; let index = index;"
-                  #accordionItem="cdkAccordionItem" class="custom-accordion-item" role="button" tabindex="0"
-                  [attr.id]="'accordion-header-' + index" [attr.aria-expanded]="accordionItem.expanded"
-                  [attr.aria-controls]="'accordion-body-' + index">
+                <cdk-accordion-item *ngFor="let item of items; let index = index;" #accordionItem="cdkAccordionItem"
+                  class="custom-accordion-item" role="button" tabindex="0" [attr.id]="'accordion-header-' + index"
+                  [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">
                   <div class="custom-accordion-item-header" (click)="accordionItem.toggle()">
-                    {{ item.storyName }}
+                    {{ item.storyName }} with {{item.storyPoint}} points
                     <span class="custom-accordion-item-description">
                       Click to {{ accordionItem.expanded ? 'close' : 'open' }}
                     </span>
@@ -57,8 +59,8 @@
                 </mat-card-actions>
               </form>
               <mat-card-actions>
-                <button mat-raised-button color="primary" type="submit">Clear Stories</button>
-                <button mat-raised-button color="primary" type="submit">Clear Stories</button>
+                <button mat-raised-button color="primary" (click)="clearSprint()" type="submit">Clear Sprint</button>
+                <button mat-raised-button color="primary" (click)="clearStories()" type="submit">Clear Stories</button>
               </mat-card-actions>
             </mat-card-content>
           </mat-card>

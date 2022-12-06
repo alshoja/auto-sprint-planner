@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { Story } from 'src/app/interfaces/story.interface';
 import { SharedService } from '../shared/shared.service';
-const stories: Story[] = []
+let stories: Story[] = []
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class StoryService {
-
-  constructor(private sharedService: SharedService) { }
-
-  getStories(): Observable<Story[]> {
-    return of(stories)
+  storySubject = new Subject<any[]>();
+  constructor(private sharedService: SharedService) {
+    this.storySubject = new BehaviorSubject<Story[]>(new Array<Story>())
   }
+
+  getStories(): Subject<Story[]> {
+    this.storySubject.next(stories);
+    return this.storySubject
+  }
+
 
   addStory(item: Story) {
     const duplicates = stories.filter((story) => story.storyName === item.storyName)
@@ -26,5 +30,10 @@ export class StoryService {
       this.sharedService.openSnackBar('Duplicate names are not allowed!', 'Oops')
     }
     return stories
+  }
+
+  clearStories() {
+    stories = []
+    this.storySubject.next([]);
   }
 }
