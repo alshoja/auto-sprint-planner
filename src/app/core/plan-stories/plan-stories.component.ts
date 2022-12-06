@@ -1,6 +1,5 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Story } from 'src/app/interfaces/story.interface';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import { StoryService } from 'src/app/services/story/story.service';

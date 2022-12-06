@@ -1,15 +1,15 @@
 <mat-card class="dashboard-card">
   <mat-card-header>
     <div class="button">
-      <button (click)="openDialog()" mat-mini-fab color="primary" aria-label="Example icon button with a delete icon">
-        <mat-icon>add</mat-icon>
+      <button (click)="openDialog()" mat-raised-button color="primary" aria-label="Example icon button with a delete icon">
+         New
       </button>
     </div>
     <mat-card-title>
       Stories
     </mat-card-title>
   </mat-card-header>
-  <div style="padding: 10px">
+  <div class="table">
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource">
 

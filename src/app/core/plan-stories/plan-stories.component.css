@@ -1,14 +1,9 @@
-/* .custom-accordion {
-  display: block;
-  max-width: 500px;
-} */
-
 .custom-accordion-item {
   display: block;
   border: solid 1px #ccc;
 }
 
-.custom-accordion-item + .custom-accordion-item {
+.custom-accordion-item+.custom-accordion-item {
   border-top: none;
 }
 
@@ -45,4 +40,16 @@
 
 button.mdc-button.mdc-button--raised.mat-mdc-raised-button.mat-primary.mat-mdc-button-base {
   margin: 5px;
+}
+
+.min-width {
+  min-width: 800px;
+}
+
+.width {
+  width: 100%;
+}
+
+.action {
+  padding: 10px;
 }

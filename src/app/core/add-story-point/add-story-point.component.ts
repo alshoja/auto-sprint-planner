@@ -30,6 +30,7 @@ export class AddStoryPointComponent {
   onSubmit(): void {
     if (this.storyForm.valid) {
       this.storyService.addStory(this.storyForm.value as unknown as Story)
+      this.storyForm.reset()
     }
 
   }
