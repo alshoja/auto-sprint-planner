@@ -30,6 +30,7 @@ export class ListStoriesComponent {
   getStories() {
     this.storyService.getStories().subscribe(arg => this.dataSource = new MatTableDataSource<Story>(arg));
   }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AddStoryPointComponent, {
       width: '550px',

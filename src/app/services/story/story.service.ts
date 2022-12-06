@@ -20,13 +20,11 @@ export class StoryService {
   addStory(item: Story) {
     const duplicates = stories.filter((story) => story.storyName === item.storyName)
     if (!duplicates.length) {
-      console.log('here s teh ', stories)
       const items = stories.push(item)
+      this.sharedService.openSnackBar('New story has been successfully added', 'Info')
     } else {
       this.sharedService.openSnackBar('Duplicate names are not allowed!', 'Oops')
     }
     return stories
   }
-
-
 }

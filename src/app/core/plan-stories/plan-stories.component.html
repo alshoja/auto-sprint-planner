@@ -9,11 +9,12 @@
           <mat-card>
             <mat-card-content style="min-width: 800px;">
               <cdk-accordion style="min-width: 800px;" class="custom-accordion">
-                <cdk-accordion-item *ngFor="let item of items; let index = index;" #accordionItem="cdkAccordionItem"
-                  class="custom-accordion-item" role="button" tabindex="0" [attr.id]="'accordion-header-' + index"
-                  [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + index">
+                <cdk-accordion-item *ngFor="let item of items; let index = index;"
+                  #accordionItem="cdkAccordionItem" class="custom-accordion-item" role="button" tabindex="0"
+                  [attr.id]="'accordion-header-' + index" [attr.aria-expanded]="accordionItem.expanded"
+                  [attr.aria-controls]="'accordion-body-' + index">
                   <div class="custom-accordion-item-header" (click)="accordionItem.toggle()">
-                    {{ item }}
+                    {{ item.storyName }}
                     <span class="custom-accordion-item-description">
                       Click to {{ accordionItem.expanded ? 'close' : 'open' }}
                     </span>
@@ -21,9 +22,7 @@
                   <div class="custom-accordion-item-body" role="region"
                     [style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + index"
                     [attr.aria-labelledby]="'accordion-header-' + index">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis
-                    excepturi incidunt ipsum deleniti labore, tempore non nam doloribus blanditiis
-                    veritatis illo autem iure aliquid ullam rem tenetur deserunt velit culpa?
+                    {{item.description}}
                   </div>
                 </cdk-accordion-item>
               </cdk-accordion>
@@ -55,13 +54,12 @@
                 <mat-card-actions>
                   <button style="padding:10px ;" mat-raised-button color="primary" type="submit">Auto Select
                     Stories</button>
-                  <button mat-raised-button color="primary" type="submit">Clear Stories</button>
-                </mat-card-actions>
-                <mat-card-actions>
-                  <button mat-raised-button color="primary" type="submit">Clear Stories</button>
                 </mat-card-actions>
               </form>
-
+              <mat-card-actions>
+                <button mat-raised-button color="primary" type="submit">Clear Stories</button>
+                <button mat-raised-button color="primary" type="submit">Clear Stories</button>
+              </mat-card-actions>
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>

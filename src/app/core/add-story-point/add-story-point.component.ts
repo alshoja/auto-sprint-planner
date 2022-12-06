@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Story } from 'src/app/interfaces/story.interface';
 import { StoryService } from 'src/app/services/story/story.service';
@@ -28,7 +28,10 @@ export class AddStoryPointComponent {
   });
 
   onSubmit(): void {
-    if (this.storyForm.valid) this.storyService.addStory(this.storyForm.value as unknown as Story)
+    if (this.storyForm.valid) {
+      this.storyService.addStory(this.storyForm.value as unknown as Story)
+    }
+
   }
 
   onNoClick(): void {
