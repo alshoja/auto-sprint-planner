@@ -48,6 +48,8 @@
                         <mat-error *ngIf="storyForm.controls['capacity'].hasError('required')">
                           Story Point is <strong>required</strong>
                         </mat-error>
+                        <mat-error *ngIf="storyForm.controls['capacity'].hasError('pattern')" class="text-danger">Number
+                          Only</mat-error>
                       </mat-form-field>
                     </div>
                   </div>

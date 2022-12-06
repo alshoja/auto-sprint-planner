@@ -15,7 +15,7 @@ export class PlanStoriesComponent {
   expandedIndex = 0;
 
   storyForm = this.fb.group({
-    capacity: [0, Validators.required],
+    capacity: [0, [Validators.required, Validators.pattern("^[0-9]*$")]],
   });
 
   constructor(private fb: FormBuilder, private sharedService: SharedService, private storyService: StoryService) { }
